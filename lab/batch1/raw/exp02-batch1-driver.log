@@ -1,0 +1,180 @@
+idx 0 done
+idx 1 done
+idx 2 done
+idx 3 done
+idx 4 done
+idx 5 done
+idx 6 done
+idx 7 done
+idx 8 done
+idx 9 done
+{
+ "exp": {
+  "timeout": {
+   "n": 7,
+   "t2_residual_runs": 7,
+   "t10_residual_runs": 7,
+   "t2_totals": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "t10_totals": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "cancel": {
+   "n": 8,
+   "t2_residual_runs": 8,
+   "t10_residual_runs": 8,
+   "t2_totals": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "t10_totals": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "normal": {
+   "n": 8,
+   "t2_residual_runs": 0,
+   "t10_residual_runs": 0,
+   "t2_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "t10_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "ctrl": {
+  "timeout": {
+   "n": 8,
+   "t2_residual_runs": 8,
+   "t10_residual_runs": 8,
+   "t2_totals": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "t10_totals": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ]
+  },
+  "cancel": {
+   "n": 9,
+   "t2_residual_runs": 9,
+   "t10_residual_runs": 9,
+   "t2_totals": [
+    5,
+    5,
+    5,
+    6,
+    5,
+    5,
+    6,
+    5,
+    5
+   ],
+   "t10_totals": [
+    5,
+    5,
+    5,
+    6,
+    5,
+    5,
+    6,
+    5,
+    5
+   ]
+  },
+  "normal": {
+   "n": 8,
+   "t2_residual_runs": 8,
+   "t10_residual_runs": 8,
+   "t2_totals": [
+    5,
+    6,
+    6,
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "t10_totals": [
+    5,
+    6,
+    6,
+    5,
+    5,
+    5,
+    5,
+    5
+   ]
+  }
+ },
+ "failed_runs": [
+  "ctrl-cancel-0",
+  "ctrl-timeout-1",
+  "exp-cancel-1",
+  "ctrl-normal-1",
+  "exp-timeout-2",
+  "exp-normal-2",
+  "exp-timeout-3",
+  "exp-cancel-3",
+  "exp-timeout-5",
+  "exp-normal-5",
+  "ctrl-timeout-8",
+  "ctrl-normal-8"
+ ]
+}

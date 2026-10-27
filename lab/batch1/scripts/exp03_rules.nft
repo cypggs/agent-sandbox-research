@@ -1,0 +1,41 @@
+# EXP-03 v3 recipe — LAB-MINI carrier form of the OpenSandbox-style deny recipe.
+# Carrier: single child netns, all endpoints are 127/8 aliases on lo (the only
+# traffic this host permits inside a child netns; measured, see report).
+# DEVIATION (disclosed): the production recipe's `oif "lo" accept` exemption is
+# OMITTED here because lo is the only "wire" in this carrier; without omitting
+# it no destination rule could ever be exercised. All destination-based rules
+# (default drop, controlled DNS, whitelist allow, explicit metadata/internal
+# denies) are 1:1 with the frozen recipe structure. Stand-in mapping:
+#   127.0.0.254 = metadata endpoint (production: 169.254.0.0/16 deny line below)
+#   127.0.0.2   = internal service   (production: RFC1918 deny lines below)
+#   127.0.0.53  = controlled resolver; 127.0.0.10 = whitelist target
+# Production literal deny lines are present for fidelity but carry no traffic
+# in this carrier (those destinations are unreachable before nft; noted in report).
+table inet labfilter {
+  chain output {
+    type filter hook output priority 0; policy drop;
+    # DEVIATION (disclosed): production recipe uses `ct state established,related
+    # accept` for replies; conntrack state matching is unavailable in this
+    # kernel/netns (nft returns ENOENT for any ct rule, measured). Stateless
+    # reply allowances keyed on sentinel (saddr,sport) pairs are used instead;
+    # all such pairs are bound by the sentinels, so a workload process cannot
+    # claim them as source in this carrier.
+    ip saddr 127.0.0.10 tcp sport 8080 accept
+    ip saddr 127.0.0.53 tcp sport 53 accept
+    # controlled DNS only (127.0.0.53) — udp branch present but untestable in
+    # this carrier (host runtime EPERMs all UDP sendto); tcp branch exercised
+    udp dport 53 ip daddr 127.0.0.53 accept
+    tcp dport 53 ip daddr 127.0.0.53 accept
+    # whitelist target
+    tcp dport 8080 ip daddr 127.0.0.10 accept
+    # explicit denies: stand-ins exercised by traffic in this carrier
+    ip daddr 127.0.0.254 drop
+    ip daddr 127.0.0.2 drop
+    # explicit denies: production literal lines (not traffic-tested here)
+    ip daddr 169.254.0.0/16 drop
+    ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
+    ip6 daddr fd00:ec2::254 drop
+    ip6 daddr fc00::/7 drop
+    # everything else: policy drop (incl. DNS to non-designated resolvers)
+  }
+}

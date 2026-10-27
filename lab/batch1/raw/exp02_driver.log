@@ -1,0 +1,191 @@
+idx 0 done
+idx 1 done
+idx 2 done
+idx 3 done
+idx 4 done
+idx 5 done
+idx 6 done
+idx 7 done
+idx 8 done
+idx 9 done
+{
+ "exp": {
+  "timeout": {
+   "n": 10,
+   "t2_residual_runs": 0,
+   "t10_residual_runs": 0,
+   "t2_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "t10_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "cancel": {
+   "n": 10,
+   "t2_residual_runs": 0,
+   "t10_residual_runs": 0,
+   "t2_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "t10_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "normal": {
+   "n": 10,
+   "t2_residual_runs": 0,
+   "t10_residual_runs": 0,
+   "t2_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "t10_totals": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "ctrl": {
+  "timeout": {
+   "n": 10,
+   "t2_residual_runs": 10,
+   "t10_residual_runs": 10,
+   "t2_totals": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "t10_totals": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ]
+  },
+  "cancel": {
+   "n": 10,
+   "t2_residual_runs": 10,
+   "t10_residual_runs": 10,
+   "t2_totals": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "t10_totals": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ]
+  },
+  "normal": {
+   "n": 10,
+   "t2_residual_runs": 10,
+   "t10_residual_runs": 10,
+   "t2_totals": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "t10_totals": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ]
+  }
+ },
+ "failed_runs": []
+}

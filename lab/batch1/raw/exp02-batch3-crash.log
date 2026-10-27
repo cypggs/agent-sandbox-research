@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp02_run.py", line 140, in <module>
+    one_run(group, mode, idx)
+  File "/home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp02_run.py", line 121, in one_run
+    assert mp > 10 and "exp02_workload.py" in cmdline_of(mp), \
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: refusing to signal unverified main pid 7538

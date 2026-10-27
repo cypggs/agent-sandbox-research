@@ -1,0 +1,189 @@
+{
+ "exp": "EXP-03-v2",
+ "phases": {
+  "exp": {
+   "mode": "exp",
+   "srv_ready": true,
+   "sentinel": {
+    "started": [
+     "meta-sim",
+     "internal",
+     "public-wl",
+     "public-nonwl",
+     "dns-203.0.113.53",
+     "dns-203.0.113.54"
+    ],
+    "errors": [
+     "meta-v6:[Errno 99] Cannot assign requested address"
+    ]
+   },
+   "cli_done": true,
+   "cases": {
+    "U1_whitelist_allow": {
+     "expect": "CANARY-PUBLIC",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U2_nonwhitelist_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U3_metadata_sim_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U4_internal_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U5_dns_wrong_resolver_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U6_dns_designated_allow": {
+     "expect": "203.0.113.10",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U7_redirect_to_metadata_deny": {
+     "expect": "DROP-at-2nd-hop",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U8_rebinding": {
+     "expect": "1st=CANARY-PUBLIC,2nd=DROP",
+     "got": {
+      "res1": {
+       "ok": false,
+       "error": "OSError",
+       "dt": 0.0
+      },
+      "get1": {
+       "ok": false,
+       "error": "no-ip",
+       "dt": 0
+      },
+      "res2": {
+       "ok": false,
+       "error": "OSError",
+       "dt": 0.0
+      },
+      "get2": {
+       "ok": false,
+       "error": "no-ip",
+       "dt": 0
+      }
+     },
+     "pass": false
+    },
+    "U9_metadata_v6_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": false,
+     "note": "instant-error instead of timeout => runtime-filter preempted or v6 unavailable; see report"
+    }
+   },
+   "nft": "nft-FAILED",
+   "srv-addrs.txt": "14: veth-s@if13: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state LOWERLAYERDOWN group default qlen 1000\n    link/ether 7e:47:5c:bf:50:78 brd ff:ff:ff:ff:ff:ff link-netnsid 0\n    inet 203.0.113.2/24 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.10/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.11/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.53/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.54/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.254/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet6 fd00:ec2::254/128 scope global tentative \n       valid_lft forever preferred_lft forever\n    inet6 fd00:99::2/64 scope global tentative \n       valid_lft forever preferred_lft forever\n",
+   "cli-addrs-exp.txt": "Device \"veth-c\" does not exist.\n",
+   "srv_log_tail": "s\n+ ip addr add 203.0.113.11/32 dev veth-s\n+ ip addr add 203.0.113.53/32 dev veth-s\n+ ip addr add 203.0.113.54/32 dev veth-s\n+ ip addr add 203.0.113.254/32 dev veth-s\n+ ip -6 addr add fd00:99::2/64 dev veth-s\n+ ip -6 addr add fd00:ec2::254/128 dev veth-s\n+ ip addr show dev veth-s\n+ touch /tmp/lab-exp03/srv-configured\n+ python3 /home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp03_sentinel.py /tmp/lab-exp03\nsentinels up: ['meta-sim', 'internal', 'public-wl', 'public-nonwl', 'dns-203.0.113.53', 'dns-203.0.113.54'] errors: ['meta-v6:[Errno 99] Cannot assign requested address']\n",
+   "cli_log_tail": "s/exp03_rules.nft:11:5-12: Error: Could not process rule: No such file or directory\n    ct state established,related accept\n    ^^^^^^^^\n+ echo nft-FAILED\n+ python3 /home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp03_client.py exp /tmp/lab-exp03/cases-exp.json\n{\"U1_whitelist_allow\": false, \"U2_nonwhitelist_deny\": false, \"U3_metadata_sim_deny\": false, \"U4_internal_deny\": false, \"U5_dns_wrong_resolver_deny\": false, \"U6_dns_designated_allow\": false, \"U7_redirect_to_metadata_deny\": false, \"U8_rebinding\": false, \"U9_metadata_v6_deny\": false}\n+ touch /tmp/lab-exp03/cli-done-exp\n"
+  },
+  "ctrl": {
+   "mode": "ctrl",
+   "srv_ready": true,
+   "sentinel": {
+    "started": [
+     "meta-sim",
+     "internal",
+     "public-wl",
+     "public-nonwl",
+     "dns-203.0.113.53",
+     "dns-203.0.113.54"
+    ],
+    "errors": [
+     "meta-v6:[Errno 99] Cannot assign requested address"
+    ]
+   },
+   "cli_done": true,
+   "cases": {
+    "C2_nonwhitelist_reachable": {
+     "expect": "CANARY-NONWL",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "C3_metadata_sim_reachable": {
+     "expect": "CANARY-METADATA",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "C4_internal_reachable": {
+     "expect": "CANARY-INTERNAL",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "C6_dns_wrong_resolver_reachable": {
+     "expect": "203.0.113.10",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    }
+   },
+   "srv-addrs.txt": "16: veth-s@if15: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state LOWERLAYERDOWN group default qlen 1000\n    link/ether 3e:69:02:bc:b3:b2 brd ff:ff:ff:ff:ff:ff link-netnsid 0\n    inet 203.0.113.2/24 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.10/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.11/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.53/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.54/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet 203.0.113.254/32 scope global veth-s\n       valid_lft forever preferred_lft forever\n    inet6 fd00:ec2::254/128 scope global tentative \n       valid_lft forever preferred_lft forever\n    inet6 fd00:99::2/64 scope global tentative \n       valid_lft forever preferred_lft forever\n",
+   "cli-addrs-ctrl.txt": "Device \"veth-c\" does not exist.\n",
+   "srv_log_tail": "s\n+ ip addr add 203.0.113.11/32 dev veth-s\n+ ip addr add 203.0.113.53/32 dev veth-s\n+ ip addr add 203.0.113.54/32 dev veth-s\n+ ip addr add 203.0.113.254/32 dev veth-s\n+ ip -6 addr add fd00:99::2/64 dev veth-s\n+ ip -6 addr add fd00:ec2::254/128 dev veth-s\n+ ip addr show dev veth-s\n+ touch /tmp/lab-exp03/srv-configured\n+ python3 /home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp03_sentinel.py /tmp/lab-exp03\nsentinels up: ['meta-sim', 'internal', 'public-wl', 'public-nonwl', 'dns-203.0.113.53', 'dns-203.0.113.54'] errors: ['meta-v6:[Errno 99] Cannot assign requested address']\n",
+   "cli_log_tail": "24 dev veth-c\nCannot find device \"veth-c\"\n+ ip -6 addr add fd00:99::3/64 dev veth-c\nCannot find device \"veth-c\"\n+ true\n+ ip -6 route add fd00:ec2::254 dev veth-c\nCannot find device \"veth-c\"\n+ true\n+ ip addr show dev veth-c\n+ touch /tmp/lab-exp03/cli-configured-ctrl\n+ '[' ctrl = exp ']'\n+ python3 /home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp03_client.py ctrl /tmp/lab-exp03/cases-ctrl.json\n{\"C2_nonwhitelist_reachable\": false, \"C3_metadata_sim_reachable\": false, \"C4_internal_reachable\": false, \"C6_dns_wrong_resolver_reachable\": false}\n+ touch /tmp/lab-exp03/cli-done-ctrl\n"
+  }
+ }
+}

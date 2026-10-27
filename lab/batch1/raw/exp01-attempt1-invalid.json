@@ -1,0 +1,128 @@
+{
+ "exp": "EXP-01",
+ "ts": "2026-10-27T09:56:50+0000",
+ "a_namespaces": {
+  "host": {
+   "inner": false,
+   "pid_self": 4775,
+   "hostname_before": "htch-runtime",
+   "ns": {
+    "cgroup": "cgroup:[4026532433]",
+    "ipc": "ipc:[4026532324]",
+    "mnt": "mnt:[4026532434]",
+    "net": "net:[4026532326]",
+    "pid": "pid:[4026532325]",
+    "pid_for_children": "pid:[4026532325]",
+    "time": "time:[4026531834]",
+    "time_for_children": "time:[4026531834]",
+    "user": "user:[4026532318]",
+    "uts": "uts:[4026532323]"
+   },
+   "ifaces": [
+    "host0",
+    "lo"
+   ],
+   "uid": 0,
+   "uid_map": "0     131072      65536"
+  },
+  "inner": {
+   "inner": true,
+   "pid_self": 1,
+   "hostname_before": "htch-runtime",
+   "ns": {
+    "cgroup": "cgroup:[4026532433]",
+    "ipc": "ipc:[4026532324]",
+    "mnt": "mnt:[4026532436]",
+    "net": "net:[4026532439]",
+    "pid": "pid:[4026532438]",
+    "pid_for_children": "pid:[4026532438]",
+    "time": "time:[4026531834]",
+    "time_for_children": "time:[4026531834]",
+    "user": "user:[4026532435]",
+    "uts": "uts:[4026532437]"
+   },
+   "ifaces": [
+    "lo"
+   ],
+   "uid": 0,
+   "uid_map": "0          0          1",
+   "hostname_after_set": "exp01a-canary-host",
+   "mount_tmpfs_rc": 0,
+   "mount_tmpfs_errno": 0,
+   "tmpfs_in_own_mounts": true,
+   "semget_id": 1
+  },
+  "host_after": {
+   "hostname": "htch-runtime",
+   "tmpfs_target_in_host_mounts": false
+  },
+  "checks": {
+   "inner_pid_is_1": true,
+   "inner_pid_differs_from_host_view": true,
+   "uts_hostname_set_inside": true,
+   "uts_host_unaffected": true,
+   "net_ifaces_only_lo": true,
+   "mnt_tmpfs_mounted_inside": true,
+   "mnt_not_visible_on_host": true,
+   "ipc_object_created_inside": true,
+   "all_ns_inodes_differ": false,
+   "user_uid_mapped_root": true
+  },
+  "pass": false
+ },
+ "b_cgroup_evidence": {
+  "root_controllers_file": "",
+  "child_files": [
+   "cgroup.controllers",
+   "cgroup.events",
+   "cgroup.freeze",
+   "cgroup.kill",
+   "cgroup.max.depth",
+   "cgroup.max.descendants",
+   "cgroup.pressure",
+   "cgroup.procs",
+   "cgroup.stat",
+   "cgroup.stat.local",
+   "cgroup.subtree_control",
+   "cgroup.threads",
+   "cgroup.type",
+   "cpu.pressure",
+   "cpu.stat",
+   "cpu.stat.local",
+   "io.pressure",
+   "memory.pressure"
+  ],
+  "child_has_quota_files": false,
+  "subtree_write": "FAIL errno=2 No such file or directory",
+  "probe_dir_removed": true
+ },
+ "b_rlimit_cpu": {
+  "limit_s": 2,
+  "child_cpu_s": 1.936,
+  "wall_s": 2.32,
+  "rel_err_pct": 3.21,
+  "killed_by_signal": true,
+  "signal": 24
+ },
+ "b_rlimit_as": {
+  "stdout": "RESULT allocated_mib=232 vmsize_kib=254976 kB vmrss_kib=249596 kB",
+  "rc": 0
+ },
+ "b_sentinel": {
+  "solo_cpu_6s": 5.978,
+  "concurrent_cpu_6s": 5.36,
+  "degradation_pct": 10.34
+ },
+ "c_seccomp": {
+  "control_unfiltered": {
+   "rc": 0,
+   "stdout": "MOUNT rc=0 errno=0 (-) mounted=True\nOTHER getpid=1 io_ok=True socket_ok=True",
+   "stderr": ""
+  },
+  "filtered": {
+   "rc": 1,
+   "stdout": "",
+   "stderr": "ripts/exp01bc_probes.py\", line 92, in seccomp_child\n    install_seccomp()\n  File \"/home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp01bc_probes.py\", line 78, in install_seccomp\n    raise OSError(ctypes.get_errno(), \"PR_SET_SECCOMP failed\")\nOSError: [Errno 0] PR_SET_SECCOMP failed"
+  }
+ }
+}

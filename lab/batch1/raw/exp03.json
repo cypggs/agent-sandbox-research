@@ -1,0 +1,191 @@
+{
+ "exp": "EXP-03-v3",
+ "phases": {
+  "exp": {
+   "mode": "exp",
+   "cli_done": true,
+   "sentinel": {
+    "started": [
+     "meta-sim",
+     "internal",
+     "public-wl",
+     "public-nonwl",
+     "meta-v6",
+     "dns-tcp-127.0.0.53",
+     "dns-tcp-127.0.0.54"
+    ],
+    "errors": []
+   },
+   "cases": {
+    "U1_whitelist_allow": {
+     "expect": "CANARY-PUBLIC",
+     "got": {
+      "ok": true,
+      "status": 200,
+      "body": "CANARY-PUBLIC",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "U2_nonwhitelist_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "TimeoutError",
+      "dt": 2.5
+     },
+     "pass": true
+    },
+    "U3_metadata_sim_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "TimeoutError",
+      "dt": 2.5
+     },
+     "pass": true
+    },
+    "U4_internal_sim_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "TimeoutError",
+      "dt": 2.5
+     },
+     "pass": true
+    },
+    "U5_dns_wrong_resolver_deny": {
+     "expect": "DROP",
+     "got": {
+      "ok": false,
+      "error": "TimeoutError",
+      "dt": 2.5
+     },
+     "pass": true
+    },
+    "U6_dns_designated_allow": {
+     "expect": "127.0.0.10",
+     "got": {
+      "ok": true,
+      "ancount": 1,
+      "ip": "127.0.0.10",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "U7_redirect_to_metadata_deny": {
+     "expect": "DROP-at-2nd-hop",
+     "got": {
+      "ok": false,
+      "error": "TimeoutError",
+      "dt": 2.5
+     },
+     "pass": true
+    },
+    "U8_rebinding": {
+     "expect": "1st=CANARY-PUBLIC,2nd=DROP",
+     "got": {
+      "res1": {
+       "ok": true,
+       "ancount": 1,
+       "ip": "127.0.0.10",
+       "dt": 0.0
+      },
+      "get1": {
+       "ok": true,
+       "status": 200,
+       "body": "CANARY-PUBLIC",
+       "dt": 0.0
+      },
+      "res2": {
+       "ok": true,
+       "ancount": 1,
+       "ip": "127.0.0.254",
+       "dt": 0.0
+      },
+      "get2": {
+       "ok": false,
+       "error": "TimeoutError",
+       "dt": 2.5
+      }
+     },
+     "pass": true
+    },
+    "U9_metadata_v6": {
+     "expect": "DROP-or-NA",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": null,
+     "verdict": "N/A",
+     "note": "v6 non-loopback destinations unreachable in this carrier (measured ENETUNREACH/EPERM at connect); not a recipe verdict"
+    }
+   },
+   "nft": "nft-loaded",
+   "v6addr_err": "",
+   "shell_log_tail": "en_files/lab/scripts/exp03_rules.nft\n+ echo nft-loaded\n+ python3 /home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp03_client.py exp /tmp/lab-exp03/cases-exp.json\n{\"U1_whitelist_allow\": true, \"U2_nonwhitelist_deny\": true, \"U3_metadata_sim_deny\": true, \"U4_internal_sim_deny\": true, \"U5_dns_wrong_resolver_deny\": true, \"U6_dns_designated_allow\": true, \"U7_redirect_to_metadata_deny\": true, \"U8_rebinding\": true, \"U9_metadata_v6\": null}\n+ touch /tmp/lab-exp03/cli-done-exp\n+ sleep 2\n"
+  },
+  "ctrl": {
+   "mode": "ctrl",
+   "cli_done": true,
+   "sentinel": {
+    "started": [
+     "meta-sim",
+     "internal",
+     "public-wl",
+     "public-nonwl",
+     "meta-v6",
+     "dns-tcp-127.0.0.53",
+     "dns-tcp-127.0.0.54"
+    ],
+    "errors": []
+   },
+   "cases": {
+    "C2_nonwhitelist_reachable": {
+     "expect": "CANARY-NONWL",
+     "got": {
+      "ok": true,
+      "status": 200,
+      "body": "CANARY-NONWL",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "C3_metadata_sim_reachable": {
+     "expect": "CANARY-METADATA",
+     "got": {
+      "ok": true,
+      "status": 200,
+      "body": "CANARY-METADATA",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "C4_internal_sim_reachable": {
+     "expect": "CANARY-INTERNAL",
+     "got": {
+      "ok": true,
+      "status": 200,
+      "body": "CANARY-INTERNAL",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "C6_dns_wrong_resolver_reachable": {
+     "expect": "127.0.0.10",
+     "got": {
+      "ok": true,
+      "ancount": 1,
+      "ip": "127.0.0.10",
+      "dt": 0.0
+     },
+     "pass": true
+    }
+   },
+   "v6addr_err": "",
+   "shell_log_tail": "c-nonwl', 'meta-v6', 'dns-tcp-127.0.0.53', 'dns-tcp-127.0.0.54'] errors: []\n+ for i in $(seq 1 100)\n+ '[' -f /tmp/lab-exp03/sentinel-ready.json ']'\n+ break\n+ '[' ctrl = exp ']'\n+ python3 /home/hatch/workspace/goals/agent-sandbox/hidden_files/lab/scripts/exp03_client.py ctrl /tmp/lab-exp03/cases-ctrl.json\n{\"C2_nonwhitelist_reachable\": true, \"C3_metadata_sim_reachable\": true, \"C4_internal_sim_reachable\": true, \"C6_dns_wrong_resolver_reachable\": true}\n+ touch /tmp/lab-exp03/cli-done-ctrl\n+ sleep 2\n"
+  }
+ }
+}

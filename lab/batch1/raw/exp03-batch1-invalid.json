@@ -1,0 +1,181 @@
+{
+ "exp": "EXP-03",
+ "phases": {
+  "exp": {
+   "mode": "exp",
+   "srv_ready": true,
+   "cli_done": true,
+   "sentinel": {
+    "started": [
+     "meta-v4",
+     "internal",
+     "public-wl",
+     "public-nonwl",
+     "dns-10.99.0.2",
+     "dns-203.0.113.53"
+    ],
+    "errors": [
+     "meta-v6:[Errno 99] Cannot assign requested address"
+    ]
+   },
+   "cases": {
+    "U1_whitelist_allow": {
+     "expect": "CANARY-PUBLIC",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U2_nonwhitelist_deny": {
+     "expect": "BLOCKED",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "U3_metadata_v4_deny": {
+     "expect": "BLOCKED",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "U4_internal_deny": {
+     "expect": "BLOCKED",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "U5_dns_wrong_resolver_deny": {
+     "expect": "BLOCKED",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "U6_dns_designated_allow": {
+     "expect": "203.0.113.10",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "U7_redirect_to_metadata_deny": {
+     "expect": "NOT-CANARY-METADATA",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": true
+    },
+    "U8_rebinding": {
+     "expect": "1st=CANARY-PUBLIC,2nd=BLOCKED",
+     "got": {
+      "res1": {
+       "ok": false,
+       "error": "PermissionError",
+       "dt": 0.0
+      },
+      "get1": {
+       "ok": false,
+       "error": "no-ip"
+      },
+      "res2": {
+       "ok": false,
+       "error": "PermissionError",
+       "dt": 0.0
+      },
+      "get2": {
+       "ok": false,
+       "error": "no-ip"
+      }
+     },
+     "pass": false
+    },
+    "U9_metadata_v6_deny": {
+     "expect": "BLOCKED",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": true
+    }
+   },
+   "nft": "nft-FAILED",
+   "srv_log_tail": "sentinels up: ['meta-v4', 'internal', 'public-wl', 'public-nonwl', 'dns-10.99.0.2', 'dns-203.0.113.53'] errors: ['meta-v6:[Errno 99] Cannot assign requested address']\n",
+   "cli_log_tail": "es.nft:7:5-12: Error: Could not process rule: No such file or directory\n    ct state established,related accept\n    ^^^^^^^^\n{\"U1_whitelist_allow\": false, \"U2_nonwhitelist_deny\": true, \"U3_metadata_v4_deny\": true, \"U4_internal_deny\": true, \"U5_dns_wrong_resolver_deny\": true, \"U6_dns_designated_allow\": false, \"U7_redirect_to_metadata_deny\": true, \"U8_rebinding\": false, \"U9_metadata_v6_deny\": true}\n"
+  },
+  "ctrl": {
+   "mode": "ctrl",
+   "srv_ready": true,
+   "cli_done": true,
+   "sentinel": {
+    "started": [],
+    "errors": [
+     "meta-v4:[Errno 99] Cannot assign requested address",
+     "internal:[Errno 99] Cannot assign requested address",
+     "public-wl:[Errno 99] Cannot assign requested address",
+     "public-nonwl:[Errno 99] Cannot assign requested address",
+     "meta-v6:[Errno 99] Cannot assign requested address",
+     "dns-10.99.0.2:[Errno 99] Cannot assign requested address",
+     "dns-203.0.113.53:[Errno 99] Cannot assign requested address"
+    ]
+   },
+   "cases": {
+    "C2_nonwhitelist_reachable": {
+     "expect": "CANARY-NONWL",
+     "got": {
+      "ok": false,
+      "error": "OSError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "C3_metadata_reachable": {
+     "expect": "CANARY-METADATA",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "C4_internal_reachable": {
+     "expect": "CANARY-INTERNAL",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": false
+    },
+    "C6_dns_reachable": {
+     "expect": "203.0.113.10",
+     "got": {
+      "ok": false,
+      "error": "PermissionError",
+      "dt": 0.0
+     },
+     "pass": false
+    }
+   },
+   "srv_log_tail": "meta-v4:[Errno 99] Cannot assign requested address', 'internal:[Errno 99] Cannot assign requested address', 'public-wl:[Errno 99] Cannot assign requested address', 'public-nonwl:[Errno 99] Cannot assign requested address', 'meta-v6:[Errno 99] Cannot assign requested address', 'dns-10.99.0.2:[Errno 99] Cannot assign requested address', 'dns-203.0.113.53:[Errno 99] Cannot assign requested address']\n",
+   "cli_log_tail": "{\"C2_nonwhitelist_reachable\": false, \"C3_metadata_reachable\": false, \"C4_internal_reachable\": false, \"C6_dns_reachable\": false}\n"
+  }
+ }
+}
