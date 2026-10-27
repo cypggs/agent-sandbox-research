@@ -1,6 +1,6 @@
 # 覆盖率台账（本研究口径，非市场规模）
 
-更新：2026-10-28（Phase 6/7 整合：新增设计类交付计数段；产品/深研/实验计数不变，前次更新为 2026-10-27 Round 5 整合，products.csv v0.4）
+更新：2026-10-28（Phase 8 收官终局对账，见文末「终局对账」段；前次更新为同日 Phase 6/7 整合与 Round 6 回填，products.csv v0.5）
 计数定义：候选=已发现未深核（仅存在性/二手线索，confidence C/U，notes 标「Round1新增候选,待深核」）/ 已核实=官网+仓库/文档至少一项一手核对 / 深研=完成案例 17 问或源码级 / 待验证=已核实但行 confidence 仍非 A（是已核实的子集，不另加总数）
 **深研 = 3**：OpenSandbox（主仓 Round 2 深研 files/04 + Fast 外仓 Round 3 深研 files/06，主仓+外仓双深研完成，计 1 个产品）；E2B（Round 3 runtime 仓源码级深研，报告 files/07-E2B-RUNTIME-DEEP-DIVE.md，HEAD 92b83da）；Firecracker（Round 5 源码级深研，报告 files/12-FIRECRACKER-DEEP-DIVE.md，HEAD f0f48ff，计 Infra 类）。
 
@@ -93,3 +93,14 @@
 - 本轮为设计类交付，**未改动 products.csv**：产品计数不变（54 行 = 1 表头 + 53 数据行，候选 18 + 已核实 35，confidence A 22 / B 13 / C 17 / U 1），深研仍 3，待验证仍 13，实验计数仍 1 批——与 Round 5 对账段一致，两套计数不合并。
 - 对 14/15 的两处小错修正（15 §3.6 代理价格区间、14 §5.2 兼容数字日期）不影响任何产品行与计数，已分别在被改文件与 16 报告 §2 登记。
 - 附带发现（不计入本轮计数）：13-ROUND5-REPORT.md 本地与公开仓版本均在 §3 中途截断（§4–§6 缺失），已在 16 报告 §2 附记登记，待主线裁定，未静默修复。
+
+## 终局对账（Phase 8 收官，2026-10-28，与实际文件逐项核对）
+
+- **文档总数**：`files/` 共 22 个文件 = 编号交付 19 份（00、01、02、04–19；编号 03 从未使用）+ 台账 3 件（COVERAGE.md、OPEN-QUESTIONS.md、products.csv）。本轮新增：18-LAB-MANUAL.md（72 行）、19-FINAL-REPORT.md（295 行，24 章）。
+- **products.csv（v0.5）**：54 行 = 1 表头 + 53 数据行，confidence 分布 **A 22 / B 13 / C 17 / U 1**（脚本统计）。Round 6 唯一改动为 OpenHands 行（core_scenario/official_evidence/notes 按 round6-gaps.md §3 回填：主仓现定位 Agent Canvas、SDK 已拆 software-agent-sdk、默认后端与隔离仍未核实），confidence B 不变，**分布与 Round 5 一致**。回填前备份：hidden_files/research/products.csv.bak-round6。
+- **深研**：报告 **4 份**（OpenSandbox 主仓 04、OpenSandbox Fast 外仓 06、E2B runtime 07、Firecracker 12），按产品计 **3 个深研对象**（OpenSandbox 主仓+外仓计 1 个产品，与本台账既有口径一致）；另 gVisor **选读 1**（round5-C，三线定位 + Q12 结案，非全量深研，不计深研数）。
+- **实验**：已执行 **1 批**（LAB-MINI，10 号报告）；原始数据 16 文件、脚本 12 个（ls 实测）；[SELF] 判定登记不变（通过 4 项 + 载体内部分通过 1 项 + 环境不具备 1 组）。
+- **未解决问题 36 问终局分布**：已结案 **10**（Q1、Q8、Q11、Q12、Q13、Q14、Q18、Q25、Q28、Q31）/ 部分结案 **11**（Q2、Q3、Q4、Q6、Q7、Q9、Q10、Q16、Q19、Q21、Q22）/ 顺延 LAB-REF **6**（Q5、Q29、Q32、Q34、Q35、Q36）/ 冻结现状 **9**（Q15、Q17、Q20、Q23、Q24、Q26、Q27、Q30、Q33）；10+11+6+9=36，与 OPEN-QUESTIONS 编号总数一致。本轮变化：Q14 未开始→已结案（Round 6）、Q16 未开始→部分结案（Round 6，剩余子项拆分登记）。
+- **设计类交付**：参考架构 5、选型场景 9、Mermaid 全局图 12（14 号 11 + 15 号 1，结构级检查完成、渲染级未验证）、90 天专家路线 1 份（17 号）。
+- **待验证**：仍 13（已核实 35 中全部 B 行），与 Round 5 对账一致。
+- 各计数互不合并：产品计数、实验计数、设计类计数、问题处置计数为四套独立口径，本段仅并列对账。
