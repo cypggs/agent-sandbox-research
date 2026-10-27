@@ -46,6 +46,20 @@
 
 **统一字段**：每条按 攻击前提 / 攻击面 / 信任边界 / 影响 / 预防 / 检测 / 缓解与恢复 / 剩余风险 / 验证方法 九项给出。验证方法统一格式：假设 → 无害用例 → 通过判据（期望系统行为）。
 
+### 1.0.1 编号双标注说明（OWASP LLM Top 10，Round 5 线 C 补入，2026-10-27）
+
+本节为后加标注段，**不改动任何威胁条目正文与原编号**。本底稿正文引用 OWASP LLM Top 10 时一律使用 **2025 版编号**（写作时现行版，且已于 Round 2 逐条回 genai.owasp.org 原文核对，见 round2-A-evidence-debt.md §1）。OWASP 已发布 **2026 版且大改编号**（破坏性变更），为防历史引用断裂与新文献脱节并存，本项目实行**双标注**：正文保留 2025 编号，下表给出本底稿实际引用条目的 2026 映射；**后续一切引用一律带年份**（如 `LLM06:2025`），不带年份的裸编号视为歧义、不得使用（与 OPEN-QUESTIONS Q11 全项目规则一致）。
+
+| 本底稿编号（2025） | 2026 版编号 | 变化 | 在本矩阵的引用位置与用途 |
+|---|---|---|---|
+| LLM01:2025 Prompt Injection | LLM01:2026 Prompt Injection | 不变 | T19 的治理框架锚点 |
+| LLM02:2025 Sensitive Information Disclosure | LLM02:2026 Sensitive Information Disclosure | 不变 | T17 的泄露面归类（凭证/上下文回显） |
+| LLM03:2025 Supply Chain | LLM04:2026 Supply Chain | 03 → 04 | T13 恶意依赖的治理思路出处（§1.27 之 S1） |
+| LLM06:2025 Excessive Agency | LLM03:2026 Excessive Agency | 06 → 03 | T20 的定义锚点（权限/工具/自主度过量） |
+| LLM10:2025 Unbounded Consumption | LLM06:2026 Unbounded Consumption | 10 → 06 | T22 的资源维度归类出处 |
+
+补注：T17 正文另引用 LLM07:2025 System Prompt Leakage，其在 2026 版更名扩围为 **LLM08:2026 Hidden Context Exposure**，一并登记以免漏映射。映射证据等级：2025 侧为 A（Round 2 回原文逐条核）；2026 侧为 A-/B+（官网新闻稿 + 官网 roundup 的 2026 编号用法 + 多源转录互证，2026 版 PDF 全文尚未逐字核，见 round2-A §1.2 与 OPEN-QUESTIONS Q31）。
+
 ### T01 恶意生成代码（Malicious Generated Code）
 
 - **攻击前提**：AM-1/AM-2；LLM 生成的代码天然不可信，且生成过程可被任务内容影响；代码将在沙箱内以沙箱身份直接运行。
@@ -371,7 +385,7 @@
 
 | # | 来源 | 用途 | 等级 | URL |
 |---|---|---|---|---|
-| S1 | OWASP GenAI Security Project, LLM Top 10 (2025)：LLM01 Prompt Injection / LLM02 Sensitive Information Disclosure / LLM03 Supply Chain / LLM06 Excessive Agency / LLM10 Unbounded Consumption（条目名与编号经本轮检索多源一致；注意：检索中出现「2026 版已发布、编号有变」的二手说法，未回 OWASP 官网原文核对，标待核，引用编号时须注明 2025 版） | T13/T17/T19/T20/T22 | B（待回原文升 A） | https://genai.owasp.org/llm-top-10/ |
+| S1 | OWASP GenAI Security Project, LLM Top 10 (2025)：LLM01 Prompt Injection / LLM02 Sensitive Information Disclosure / LLM03 Supply Chain / LLM06 Excessive Agency / LLM10 Unbounded Consumption（条目名与编号经本轮检索多源一致；**Round 2 已回 genai.owasp.org 原文逐条核实此五条，见 round2-A-evidence-debt.md §1；2026 版已发布并改号，映射与双标注规则见 §1.0.1，引用编号时须带年份**） | T13/T17/T19/T20/T22 | A（Round 2 已回原文核实，Round 5 整合回填） | https://genai.owasp.org/llm-top-10/ |
 | S2 | MITRE ATT&CK T1611 Escape to Host | T04 分类锚点 | A | https://attack.mitre.org/techniques/T1611/ |
 | S3 | CWE-78 OS Command Injection；CWE-22 Path Traversal；CWE-918 SSRF（CWE 官方定义） | T02/T15/T09 定义锚点 | A | https://cwe.mitre.org/data/definitions/78.html ；https://cwe.mitre.org/data/definitions/22.html ；https://cwe.mitre.org/data/definitions/918.html |
 | S4 | OWASP Cheat Sheet Series, SSRF Prevention Cheat Sheet | T09 防护框架 | B（OWASP 官方速查，本轮未逐字核对） | https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html |
@@ -380,7 +394,7 @@
 | S7 | gVisor 官方架构文档（Sentry 用户态实现 syscall、Gofer 文件代理、Sentry 自身受 seccomp 约束） | T06 | A | https://gvisor.dev/docs/architecture_guide/security/ |
 | S8 | Wasmtime 官方安全文档（实例只能经显式导入与外界交互、无原始 syscall） | T06 | A | https://docs.wasmtime.dev/security.html |
 | S9 | Chromium 官方 Sandbox 设计文档（多进程沙箱与站点隔离；注意适用范围区分，见 T18） | T18/T25 | A | https://chromium.googlesource.com/chromium/src/+/HEAD/docs/design/sandbox.md |
-| S10 | runc 逃逸先例 CVE-2019-5736、CVE-2024-21626、cgroup 相关 CVE-2022-0492；内核先例 CVE-2016-5195、CVE-2022-0847（本轮经多家独立安全报道/厂商材料互证其存在与大意，未逐条打开 NVD 原页） | T04/T08 | B（Round 2 补 NVD 原页核对升 A） | https://nvd.nist.gov/vuln/detail/CVE-2019-5736 ；https://nvd.nist.gov/vuln/detail/CVE-2024-21626 ；https://nvd.nist.gov/vuln/detail/CVE-2022-0492 ；https://nvd.nist.gov/vuln/detail/CVE-2016-5195 ；https://nvd.nist.gov/vuln/detail/CVE-2022-0847 |
+| S10 | runc 逃逸先例 CVE-2019-5736、CVE-2024-21626、cgroup 相关 CVE-2022-0492；内核先例 CVE-2016-5195、CVE-2022-0847（本轮经多家独立安全报道/厂商材料互证其存在与大意；**Round 2 已逐条打开 NVD 原页核对编号、受影响产品与 CVSS，见 round2-A-evidence-debt.md §1**） | T04/T08 | A（Round 2 已回 NVD 原文核实，Round 5 整合回填） | https://nvd.nist.gov/vuln/detail/CVE-2019-5736 ；https://nvd.nist.gov/vuln/detail/CVE-2024-21626 ；https://nvd.nist.gov/vuln/detail/CVE-2022-0492 ；https://nvd.nist.gov/vuln/detail/CVE-2016-5195 ；https://nvd.nist.gov/vuln/detail/CVE-2022-0847 |
 
 **未引用/未验证声明**：除 S10 五个编号外，本文不给出任何其他 CVE 编号。检索过程中出现的个别未来年份 Wasmtime 编号（2026 年）无法与官方公告互证，判定为不可靠信息，**未采纳**。任何产品的「已发生逃逸事件」均未在本文断言。
 
