@@ -43,9 +43,25 @@ as measured unless it was actually measured.
 - [`docs/00-RESEARCH-PLAN.md`](docs/00-RESEARCH-PLAN.md) — research plan, boundaries, 8-phase execution
 - [`docs/01-TAXONOMY.md`](docs/01-TAXONOMY.md) — classification: 8 product classes × 8 isolation technologies
 - [`docs/02-ROUND1-REPORT.md`](docs/02-ROUND1-REPORT.md) — Round 1 report: findings, 18 adjudicated conflicts, coverage & gaps
+- [`docs/04-OPENSANDBOX-DEEP-DIVE.md`](docs/04-OPENSANDBOX-DEEP-DIVE.md) — OpenSandbox source-level deep dive (Round 2)
+- [`docs/05-ROUND2-REPORT.md`](docs/05-ROUND2-REPORT.md) — Round 2 report: evidence-debt clearance, first deep dive
+- [`docs/06-FAST-SANDBOX-DEEP-DIVE.md`](docs/06-FAST-SANDBOX-DEEP-DIVE.md) — OpenSandbox Fast runtime deep dive (Round 3)
+- [`docs/07-E2B-RUNTIME-DEEP-DIVE.md`](docs/07-E2B-RUNTIME-DEEP-DIVE.md) — E2B runtime deep dive (Round 3)
+- [`docs/08-ROUND3-REPORT.md`](docs/08-ROUND3-REPORT.md) — Round 3 report
+- [`docs/09-BENCHMARK-FREEZE-v1.md`](docs/09-BENCHMARK-FREEZE-v1.md) — frozen benchmark thresholds v1.0 (C1–C8, D5 profiles, ST suite)
+- [`docs/10-LAB-BATCH1-REPORT.md`](docs/10-LAB-BATCH1-REPORT.md) — Lab batch 1 report (LAB-MINI, first [SELF] data)
+- [`docs/11-ROUND4-REPORT.md`](docs/11-ROUND4-REPORT.md) — Round 4 report: lab batch 1, environment corrections
+- [`docs/12-FIRECRACKER-DEEP-DIVE.md`](docs/12-FIRECRACKER-DEEP-DIVE.md) — Firecracker source-level deep dive (Round 5)
+- [`docs/13-ROUND5-REPORT.md`](docs/13-ROUND5-REPORT.md) — Round 5 report (see truncation errata note in file header)
+- [`docs/14-REFERENCE-ARCHITECTURES.md`](docs/14-REFERENCE-ARCHITECTURES.md) — five reference architectures A–E with decision matrix and diagrams
+- [`docs/15-SELECTION-FRAMEWORK.md`](docs/15-SELECTION-FRAMEWORK.md) — selection framework: 17 dimensions, 9 route comparisons, 9 scenarios
+- [`docs/16-PHASE67-REPORT.md`](docs/16-PHASE67-REPORT.md) — Phase 6/7 integration report with four-part self-check
+- [`docs/17-90DAY-EXPERT-PLAN.md`](docs/17-90DAY-EXPERT-PLAN.md) — 90-day (12-week) L3 expert roadmap
+- [`docs/18-LAB-MANUAL.md`](docs/18-LAB-MANUAL.md) — lab manual: environment tiers, safety guardrails, experiment protocols, deferred list
+- [`docs/19-FINAL-REPORT.md`](docs/19-FINAL-REPORT.md) — final report (24 chapters): synthesis, 36-question disposition, research limitations
 - [`data/products.csv`](data/products.csv) — structured product database (53 rows × 31 fields: isolation, lifecycle, pricing, evidence grade, retrieved date…)
 - [`docs/COVERAGE.md`](docs/COVERAGE.md) — coverage ledger (candidates / verified / deep-dived, by class)
-- [`docs/OPEN-QUESTIONS.md`](docs/OPEN-QUESTIONS.md) — 27 open questions with verification methods
+- [`docs/OPEN-QUESTIONS.md`](docs/OPEN-QUESTIONS.md) — 36 tracked questions with verification methods and final disposition
 - [`research/`](research/) — per-round working papers (the research process itself, kept in the open)
 
 ## Round 1 headline findings
