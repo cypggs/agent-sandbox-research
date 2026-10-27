@@ -1,6 +1,6 @@
 # 覆盖率台账（本研究口径，非市场规模）
 
-更新：2026-10-27（Round 3 整合，products.csv v0.3）
+更新：2026-10-27（Round 4 整合，products.csv v0.3 不变；新增实验计数段）
 计数定义：候选=已发现未深核（仅存在性/二手线索，confidence C/U，notes 标「Round1新增候选,待深核」）/ 已核实=官网+仓库/文档至少一项一手核对 / 深研=完成案例 17 问或源码级 / 待验证=已核实但行 confidence 仍非 A（是已核实的子集，不另加总数）
 **深研 = 2**：OpenSandbox（主仓 Round 2 深研 files/04 + Fast 外仓 Round 3 深研 files/06，主仓+外仓双深研完成，计 1 个产品）；E2B（Round 3 runtime 仓源码级深研，报告 files/07-E2B-RUNTIME-DEEP-DIVE.md，HEAD 92b83da）。
 
@@ -17,7 +17,29 @@
 | 基础设施组件 (MicroVM/Wasm/安全容器/OS级) | 8 | 6 | 0 | 0 | 14 | 已核实：Firecracker、gVisor、Kata Containers、Cloud Hypervisor、Wasmtime、WasmEdge；候选：Google sandboxed-api、Dagger、Sysbox、Firejail、Bubblewrap、Hyperlight、Anthropic sandbox-runtime、firecracker-containerd。Round 2：Wasmtime license 逐字核结案升 A 口径（Q22）；Cloud Hypervisor 文档 CC-BY-4.0 已证、BSD-3-Clause 适用范围子项待核——按既有口径（待验证只计产品级关键字段），该子项缺口计入 OPEN-QUESTIONS Q22，不计入此处待验证 |
 | **合计** | **18** | **35** | **2** | **14** | **53** | 与 products.csv v0.3 数据行数对账一致（见对账说明） |
 
+## 实验计数（Round 4 新增，独立于产品计数）
+
+计数定义：实验批 = 一次预注册 + 一份实验报告的完整批次；判定口径以 09 冻结 v1.0 为准；[SELF] 数据点 = 本项目自测产出的判定结论（区别于 [OFFICIAL]/[THIRD-PARTY]/[ESTIMATE]，Round 3 及以前 [SELF] = 0）。
+
+- **已执行实验批：1**（Round 4 实验室第一批，LAB-MINI 载体，报告 files/10-LAB-BATCH1-REPORT.md；预注册 hidden_files/lab/PREREG-batch1.md；原始数据 16 文件、脚本 12 个，已同步公开仓 lab/batch1/，含全部无效批次）
+- [SELF] 判定登记（按 10 报告 §7 口径）：
+  - EXP-01a namespace 视图隔离：**通过**
+  - EXP-01b cgroup 配额（C1/C2/C3）：**未判定——环境不具备（控制器未委派），顺延 LAB-REF**（RLIMIT 替代探针仅作机制参考，不计 C1/C2/C3 判定）
+  - EXP-01c seccomp：**通过**
+  - EXP-02 超时清零（C4+C7）：**通过**
+  - EXP-03 网络矩阵（C8 子集 + ST-5，兼 Q29 配方验证）：**载体内部分通过**（U1–U8 全过、U9 N/A；拓扑级未判定，顺延 LAB-REF）
+  - EXP-04 ST-1/ST-2/ST-4 冒烟：**通过**（冒烟级，非性能基线）
+  - C6 快照一致性（含 Q32）：**未执行**，冻结判据已立，待 LAB-REF
+  - Q34（62s 分段拆账）：**未执行**，冻结探针方案已登记，待 LAB-REF
+- 产品侧计数本轮不变：**深研仍 2、产品仍 53 行**（见下对账说明），实验计数与产品计数不合并。
+
 ## 对账说明
+
+### Round 4（2026-10-27，实验计数与 products.csv 对账）
+
+- products.csv 未改动：共 54 行 = 1 表头 + 53 数据行，confidence 分布 **A 21 / B 14 / C 17 / U 1（Kernel）**，与 Round 3 一致；本表产品合计 53 = 候选 18 + 已核实 35、深研 2、待验证 14，全部不变，对账一致。
+- 本轮新增的只有实验维度：已执行实验批 0 → 1，[SELF] 判定 6 条登记（通过 4：EXP-01a、EXP-01c、EXP-02、EXP-04；载体内部分通过 1：EXP-03；未判定/顺延 1 组：C1/C2/C3）+ C6/Q34 未执行登记。
+- LAB-MINI 的全部绝对性能数字仅对本载体成立，禁止外推（09 §0 既定）。
 
 ### Round 3（2026-10-27，与 products.csv v0.3 逐项核对）
 
