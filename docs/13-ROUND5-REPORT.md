@@ -5,6 +5,8 @@
 > 日期：2026-10-27（Asia/Shanghai）｜ 证据等级：A 官方/源码/论文 · B 可靠独立 · C 推断待验证 · U 未知
 > 输入底稿：hidden_files/research/round5-A-five-vendors.md、files/12-FIRECRACKER-DEEP-DIVE.md、hidden_files/research/round5-C-gvisor-owasp.md、hidden_files/research/round1-D-threat-bench.md（§1.0.1 双标注已落地，531 行）
 > 本轮纪律：纯静态分析（官网原文 + 源码定位），未部署、未运行、未产生新 [SELF] 数据；实验计数不变（仍 1 批）。
+>
+> ⚠️ **勘误（2026-10-28 主线补记）**：本文件在 Round 5 整合落盘时被截断——原文止于 §3 中途（带字面截断标记），§3 余部与 §4–§6 从未写入文件，本地与公开仓版本同。此事由 Phase 6/7 自检发现并登记于 16-PHASE67-REPORT。文末已附「补遗」：可由整合记录确证的部分照实补记，无法逐字恢复的部分（§4 未验证项原文）明示缺失并指向现行台账，不做虚构重构。
 
 ## 1. 执行摘要
 
@@ -53,5 +55,21 @@
 - **Browserless**：isolation_tech 按 SaaS/开源版双写、network_control 补网络分段与 allowlist 非强制、persistence 补驻留细则、limitations/official_evidence/notes 更新；confidence 维持 B（SaaS 子项 B+、开源版 A 已注）。
 - **Steel.dev**：isolation_tech 按 SaaS（U+2024 Fly 线索 B/C 注日期）/开源版（A）双写、credential_security 补 Credentials API（A 产品表述）、deployment 补 Outpost、limitations 改写（SOC 2 未明示）；confidence 维持 B。
 - **Hyperbrowser**：isolation_tech 维持未公开并加六渠道穷尽注记、persistence 补驻留美国（A）、limitations 补 SOC 2 口径冲突（以 security 页「aligned」为准）；confidence 维持 B。
-- **Firecracker**：isolation_tech 设备面口径更新（核心极小+受控扩张、seccomp/jailer 两层）、persistence 写入 snapshot 全套结论（CRC64 仅 vmstate、UFFD/File 双后端、Diff 为 Developer Preview）、network/resource_limit
-...[truncated 3147 chars]
+- **Firecracker**：isolation_tech 设备面口径更新（核心极小+受控扩张、seccomp/jailer 两层）、persistence 写入 snapshot 全套结论（CRC64 仅 vmstate、UFFD/File 双后端、Diff 为 Developer Preview）、network/resource_limits 等字段按 12 号报告同步更新，official_evidence 补克隆 HEAD f0f48ff、notes 标 Round 5 源码深研完成。〔本条余下细节与 §3 后续条目在截断中丢失，CSV 现行内容即最终执行结果。〕
+- **gVisor**：isolation_tech/机制字段补 LISAFS（非 9P）修正、Systrap 默认依据、兼容清单位置与覆盖口径（352 条中 292 full-or-partial @2026-10-27）。〔据 Round 5 整合记录补记〕
+- **D 线底稿 §1.27**：S1（OWASP 五条）与 S10（5 个 CVE）等级 B→A 并加注「Round 2 已回原文核实，Round 5 整合回填」，未核部分保持 B，威胁正文未动。〔据 Round 5 整合记录补记〕
+
+## 4. 未验证项（原文缺失，指向现行台账）
+
+本节原文（整合记录称共 8 条）在截断中丢失，无法逐字恢复，不在此虚构重构。Round 5 结束时点的未验证状态以当时同步的 OPEN-QUESTIONS.md 与 COVERAGE.md 为准；现行状态见仓库最新版 OPEN-QUESTIONS（36 问）与 16-PHASE67-REPORT 的未验证项登记。
+
+## 5. 本轮纪律自检
+
+〔原文缺失〕本轮执行纪律可由各线交付自检佐证：线 A 逐家留穷尽路径、线 B 纯静态未运行 VM、线 C 只加标注段不改威胁正文；CSV 无推测补全（五家 VMM 点名率 0 如实保留、Runloop 子项升格未带整行升格）。
+
+## 6. 下一阶段建议（据整合记录补记，已执行）
+
+下一阶段为 Phase 6/7：参考架构 A–E 与选型框架，产出顺序五步——①跨架构决策矩阵 ②五份架构文档 ③全局图组 ④选型框架（17 维定义 + 9 场景）⑤自检后整合。该阶段已于 2026-10-28 完成，见 14-REFERENCE-ARCHITECTURES.md、15-SELECTION-FRAMEWORK.md、16-PHASE67-REPORT.md。LAB-REF 分支（Q36）继续挂账。
+
+---
+**补遗说明**：本文件 §3 前半与 §1–§2 为 Round 5 原文；带〔补记〕标记的段落与本节为 2026-10-28 主线依据 Round 5 整合验收记录所补，只补可确证事实，缺失处明示缺失。此勘误不改变任何 CSV 数据与已结案结论。
