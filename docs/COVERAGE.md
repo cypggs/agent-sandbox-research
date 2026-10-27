@@ -96,7 +96,7 @@
 
 ## 终局对账（Phase 8 收官，2026-10-28，与实际文件逐项核对）
 
-- **文档总数**：`files/` 共 22 个文件 = 编号交付 19 份（00、01、02、04–19；编号 03 从未使用）+ 台账 3 件（COVERAGE.md、OPEN-QUESTIONS.md、products.csv）。本轮新增：18-LAB-MANUAL.md（72 行）、19-FINAL-REPORT.md（295 行，24 章）。
+- **文档总数**：`files/` 共 22 个文件 = 编号交付 19 份（00、01、02、04–19；编号 03 从未使用）+ 台账 3 件（COVERAGE.md、OPEN-QUESTIONS.md、products.csv）。本轮新增：18-LAB-MANUAL.md（503 行，v1.1 重写版——首版落盘截断于 72 行，已按源材料完整重写并勘误，见该文件 §7）、19-FINAL-REPORT.md（295 行，24 章）。
 - **products.csv（v0.5）**：54 行 = 1 表头 + 53 数据行，confidence 分布 **A 22 / B 13 / C 17 / U 1**（脚本统计）。Round 6 唯一改动为 OpenHands 行（core_scenario/official_evidence/notes 按 round6-gaps.md §3 回填：主仓现定位 Agent Canvas、SDK 已拆 software-agent-sdk、默认后端与隔离仍未核实），confidence B 不变，**分布与 Round 5 一致**。回填前备份：hidden_files/research/products.csv.bak-round6。
 - **深研**：报告 **4 份**（OpenSandbox 主仓 04、OpenSandbox Fast 外仓 06、E2B runtime 07、Firecracker 12），按产品计 **3 个深研对象**（OpenSandbox 主仓+外仓计 1 个产品，与本台账既有口径一致）；另 gVisor **选读 1**（round5-C，三线定位 + Q12 结案，非全量深研，不计深研数）。
 - **实验**：已执行 **1 批**（LAB-MINI，10 号报告）；原始数据 16 文件、脚本 12 个（ls 实测）；[SELF] 判定登记不变（通过 4 项 + 载体内部分通过 1 项 + 环境不具备 1 组）。
