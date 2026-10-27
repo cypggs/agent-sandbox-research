@@ -1,6 +1,6 @@
 # 覆盖率台账（本研究口径，非市场规模）
 
-更新：2026-10-27（Round 5 整合，products.csv v0.4：五家隔离攻坚回填 + Firecracker 深研回填 + gVisor 选读补记）
+更新：2026-10-28（Phase 6/7 整合：新增设计类交付计数段；产品/深研/实验计数不变，前次更新为 2026-10-27 Round 5 整合，products.csv v0.4）
 计数定义：候选=已发现未深核（仅存在性/二手线索，confidence C/U，notes 标「Round1新增候选,待深核」）/ 已核实=官网+仓库/文档至少一项一手核对 / 深研=完成案例 17 问或源码级 / 待验证=已核实但行 confidence 仍非 A（是已核实的子集，不另加总数）
 **深研 = 3**：OpenSandbox（主仓 Round 2 深研 files/04 + Fast 外仓 Round 3 深研 files/06，主仓+外仓双深研完成，计 1 个产品）；E2B（Round 3 runtime 仓源码级深研，报告 files/07-E2B-RUNTIME-DEEP-DIVE.md，HEAD 92b83da）；Firecracker（Round 5 源码级深研，报告 files/12-FIRECRACKER-DEEP-DIVE.md，HEAD f0f48ff，计 Infra 类）。
 
@@ -78,3 +78,18 @@
 - 不双计规则：一个产品只按主类计一次。Fly.io（Machines=P6 / Sprites=P1）、Vercel（P1 性质 / P6 主类）、E2B/Daytona/Microsandbox 的 P8 属性、GKE Agent Sandbox 的 P1/P8 双性，均只计主类，副属性在 CSV 中注明。
 - 上一版（Round 0）台账为种子池 23 条全 U、各类计数为 0；Round 1 版替代之，种子池口径已关闭。
 - 这些数字只说明本研究覆盖，不代表市场真实规模；禁止宣称"覆盖 100% 市场"。未覆盖清单见 02-ROUND1-REPORT.md、05-ROUND2-REPORT.md、08-ROUND3-REPORT.md 与 OPEN-QUESTIONS.md（Prized/Tensorlake/Deno Sandbox/LangSmith Sandboxes 等 20+ 仅登记未入表项不在本表计数内）。
+
+## 设计类交付计数（Phase 6/7 新增，独立于产品/实验计数）
+
+计数定义：参考架构 = files/14 中按统一 17 项模板（组件/控制面/数据面/调度/创建/执行代理/文件/网络/凭证/观测/快照/回收/故障/HA/边界/瓶颈/成本）+ 关键决策出处 + 最先被打穿路径 + 不适用场景完整成文的架构；选型场景 = files/15 中权重声明（门槛/一阶/二阶）+ 主推荐 + 替代 + 前提 + 风险 + 明确不推荐完整成文的场景；全局图 = 两份交付中的 Mermaid 图（结构级检查完成，渲染级未验证，见 16 报告 §4）。
+
+- **参考架构：5**（A 容器型 / B MicroVM 型 / C 安全容器型（含 C1 gVisor、C2 Kata 两变体）/ D Wasm 型 / E 混合型），files/14-REFERENCE-ARCHITECTURES.md（546 行）
+- **选型场景：9**（个人 Agent / AI Coding Agent / 企业内部运维 Agent / 公众 Agent SaaS / 不可信代码执行平台 / Browser Agent / Computer Use Agent / 高安全金融 / 大规模多租户），files/15-SELECTION-FRAMEWORK.md（264 行）；另含 17 维度定义与 9 组路线两两对照、C 级判断登记 18 条（C-1…C-18）
+- **全局图：12 = 14 号 11 张 + 15 号 1 张**（14：技术分类、总体架构、控制/数据平面、生命周期状态、网络安全边界、多租户执行 + 五架构各自组件图 5 张；15：选型决策流程图）
+- 整合与自检报告：files/16-PHASE67-REPORT.md（四项自检：(a) 架构引用对齐问题 0；(b) 9 场景抽查 9/9 一致、价格口径小错 1 已修；(c) 性能数字清单 6 个全合格、日期标注小错 1 已修；(d) C 级判断 18 条比对矛盾 0、无对照 3）
+
+## 对账说明（Phase 6/7）
+
+- 本轮为设计类交付，**未改动 products.csv**：产品计数不变（54 行 = 1 表头 + 53 数据行，候选 18 + 已核实 35，confidence A 22 / B 13 / C 17 / U 1），深研仍 3，待验证仍 13，实验计数仍 1 批——与 Round 5 对账段一致，两套计数不合并。
+- 对 14/15 的两处小错修正（15 §3.6 代理价格区间、14 §5.2 兼容数字日期）不影响任何产品行与计数，已分别在被改文件与 16 报告 §2 登记。
+- 附带发现（不计入本轮计数）：13-ROUND5-REPORT.md 本地与公开仓版本均在 §3 中途截断（§4–§6 缺失），已在 16 报告 §2 附记登记，待主线裁定，未静默修复。
